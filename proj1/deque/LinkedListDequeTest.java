@@ -113,4 +113,32 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+
+    @Test
+    /* Test equals method */
+    public void equalTest() {
+
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        for (int i = 0; i < 5; i++) {
+            lld1.addLast(i);
+        }
+
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+        for (int i = 5; i < 10; i++) {
+            lld2.addLast(i);
+        }
+
+        LinkedListDeque<Integer> lld3 = new LinkedListDeque<>();
+        for (int i = 0; i < 5; i++) {
+            lld3.addLast(i);
+        }
+
+        if (lld1.equals(lld2)) {
+            System.out.println("Uh-Oh, These should not be equal!");
+        } else { System.out.println("Correct, These are not equal!"); }
+
+        if (lld1.equals(lld3)) {
+            System.out.println("Great, These should are equal!");
+        } else { System.out.println("Uh-Oh, These are not equal when they should be!"); }
+    }
 }
