@@ -97,6 +97,23 @@ public class ArrayDequeTest {
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, ad1.removeLast());
     }
 
+
+    @Test
+    /* Add more elements to the deque than it has room for */
+    public void resizeTest() {
+
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 20; i++) {
+            ad1.addLast(i);
+        }
+        for (int i = 0; i < 20; i++) {
+            ad1.removeLast();
+            ad1.printDeque();
+        }
+
+        ad1.printDeque();
+    }
+
     @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
@@ -113,5 +130,33 @@ public class ArrayDequeTest {
         for (double i = 999999; i > 500000; i--) {
             assertEquals("Should have the same value", i, (double) ad1.removeLast(), 0.0);
         }
+    }
+
+    @Test
+    /* Test equals method */
+    public void equalTest() {
+
+        ArrayDeque<Integer> ad1 = new ArrayDeque<>();
+        for (int i = 0; i < 5; i++) {
+            ad1.addLast(i);
+        }
+
+        ArrayDeque<Integer> ad2 = new ArrayDeque<>();
+        for (int i = 5; i < 10; i++) {
+            ad2.addLast(i);
+        }
+
+        ArrayDeque<Integer> ad3 = new ArrayDeque<>();
+        for (int i = 0; i < 5; i++) {
+            ad3.addLast(i);
+        }
+
+        if (ad1.equals(ad2)) {
+            System.out.println("Uh-Oh, These should not be equal!");
+        } else { System.out.println("Correct, These are not equal!"); }
+
+        if (ad1.equals(ad3)) {
+            System.out.println("Great, These should are equal!");
+        } else { System.out.println("Uh-Oh, These are not equal when they should be!"); }
     }
 }
