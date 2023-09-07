@@ -97,6 +97,23 @@ public class ArrayDequeTest {
         assertEquals("Should return null when removeLast is called on an empty Deque,", null, ad1.removeLast());
     }
 
+
+    @Test
+    /* Add more elements to the deque than it has room for */
+    public void resizeTest() {
+
+        ArrayDeque<Integer> ad1 = new ArrayDeque<Integer>();
+        for (int i = 0; i < 20; i++) {
+            ad1.addLast(i);
+        }
+        for (int i = 0; i < 20; i++) {
+            ad1.removeLast();
+            ad1.printDeque();
+        }
+
+        ad1.printDeque();
+    }
+
     @Test
     /* Add large number of elements to deque; check if order is correct. */
     public void bigLLDequeTest() {
