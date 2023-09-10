@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] items;
     private int size;
     private int nextFirst;
@@ -28,6 +28,7 @@ public class ArrayDeque<T> implements Iterable<T> {
         nextLast = size;
     }
 
+    @Override
     public void addFirst(T item){
         if(size == items.length){
             resize(size * 2);
@@ -41,6 +42,8 @@ public class ArrayDeque<T> implements Iterable<T> {
         }
         size ++;
     }
+
+    @Override
     public void addLast(T item){
         if(size == items.length){
             resize(size * 2);
@@ -53,15 +56,13 @@ public class ArrayDeque<T> implements Iterable<T> {
         }
         size ++;
     }
-    public boolean isEmpty(){
-        if(size == 0){
-            return true;
-        }
-        return false;
-    }
+
+    @Override
     public int size(){
         return size;
     }
+
+    @Override
     public void printDeque(){
         if(isEmpty()){
             System.out.println("No items currently in the Array Deque");
@@ -74,6 +75,8 @@ public class ArrayDeque<T> implements Iterable<T> {
             System.out.println();
         }
     }
+
+    @Override
     public T removeFirst(){
         if(isEmpty()) {
             return null;
@@ -97,6 +100,8 @@ public class ArrayDeque<T> implements Iterable<T> {
         size--;
         return first;
     }
+
+    @Override
     public T removeLast(){
         if(isEmpty()){
             return null;
@@ -120,6 +125,8 @@ public class ArrayDeque<T> implements Iterable<T> {
         size--;
         return last;
     }
+
+    @Override
     public T get(int index){
         T returnVal;
         if(items[index] == null || index >= items.length){
