@@ -109,10 +109,62 @@ public class Model extends Observable {
     public boolean tilt(Side side) {
         boolean changed;
         changed = false;
+        int size = board.size();
+        /** for tracking northernmost row that has a mergable tile and value if applicable.
+         *  topMergableValue of 0 means the tile is null.
+         * **/
+        int topMergableRow;
+        int topMergableValue;
+
+        board.setViewingPerspective(side);
 
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+
+        /**
+        * 1. start at northernmost value for each column and determine if null or value and store value
+        * 2. check tile one south of previous. If null, move on to next tile. If tile has value, check if equal
+        *    to previous tile with value's value and that it hasn't merged once already.
+        * 3. Move tile if applicable, otherwise repeat until reached the bottom of column and then do the same
+        *    for all columns
+        **/
+
+        for (int c = 0; c < size; c += 1) {
+            topMergableRow = size - 1;
+            topMergableValue = 0;
+            for (int r = 3; r >= 0; r -= 1) {
+                if (r == 3 && board.tile(c, r) != null) {
+                    topMergableValue = board.tile(c, r).value();
+                }  else if (r < topMergableRow && board.tile(c, r) != null) {
+                    if (topMergableValue == 0) {
+                        topMergableValue = board.tile(c, r).value();
+                        board.move(c, topMergableRow, board.tile(c, r));
+                        changed = true;
+                    } else if (board.tile(c, r).value() == topMergableValue) {
+                        board.move(c, topMergableRow, board.tile(c, r));
+                        changed = true;
+                        score += topMergableValue * 2;
+                        topMergableRow -= 1;
+                        if (board.tile(c, topMergableRow) == null) {
+                            topMergableValue = 0;
+                        } else {
+                            topMergableValue = board.tile(c, topMergableRow).value();
+                        }
+                    } else if (topMergableRow == r + 1) {
+                        topMergableRow -= 1;
+                        topMergableValue = board.tile(c, topMergableRow).value();
+                    } else {
+                        topMergableRow -= 1;
+                        topMergableValue = board.tile(c, r).value();
+                        board.move(c, topMergableRow, board.tile(c, r));
+                        changed = true;
+                    }
+                }
+            }
+        }
+
+        board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -137,7 +189,14 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        int size = b.size();
+        for (int c = 0; c < size; c += 1) {
+            for (int r = 0; r< size; r += 1) {
+                if (b.tile(c, r) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +206,16 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        int size = b.size();
+        for (int c = 0; c < size; c += 1) {
+            for (int r = 0; r < size; r += 1) {
+                if (b.tile(c, r) != null) {
+                    if (b.tile(c, r).value() == MAX_PIECE) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +226,18 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        if (emptySpaceExists(b)) { return true; }
+        int size = b.size();
+        for (int c = 0; c < size; c++) {
+            for (int r = 0; r < size; r++) {
+                int mainPos = b.tile(c, r).value();
+                if (r < size - 1 && (b.tile(c, r) != null && mainPos == b.tile(c, r + 1).value())) {
+                    return true;
+                } else if (c < size - 1 && (b.tile(c, r) != null && mainPos == b.tile(c + 1, r).value())) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
