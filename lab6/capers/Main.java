@@ -37,7 +37,7 @@ public class Main {
      *
      * @param args arguments from the command line
      */
-    public static void main(String[] args) {
+    public static void main(String... args) {
         if (args.length == 0) {
             Utils.exitWithError("Must have at least one argument");
         }
