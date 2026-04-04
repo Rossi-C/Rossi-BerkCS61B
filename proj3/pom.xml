@@ -16,6 +16,14 @@
     <artifactId>proj3</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>cs61b-javalib-local</id>
+            <name>CS61B course javalib (local)</name>
+            <url>file:${project.basedir}/../library-sp21/javalib</url>
+        </repository>
+    </repositories>
+
     <build>
         <sourceDirectory>${project.basedir}</sourceDirectory>
         <testSourceDirectory>${project.basedir}</testSourceDirectory>
@@ -23,17 +31,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.14</source>
-                    <target>1.14</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
+                    <release>14</release>
                     <compilerArgs>
                         <arg>-J-XX:+ShowCodeDetailsInExceptionMessages</arg>
                     </compilerArgs>
