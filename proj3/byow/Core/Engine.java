@@ -3,17 +3,44 @@ package byow.Core;
 import byow.TileEngine.TERenderer;
 import byow.TileEngine.TETile;
 
-public class Engine {
+import java.io.File;
+import java.io.Serializable;
+import java.nio.file.Paths;
+
+public class Engine implements Serializable {
+    public static final File CWD = new File(System.getProperty("user.dir"));
+    public static final File BYOW_DIR = Paths.get(CWD.getPath(), ".byow").toFile();
+    public static final File SEED_FILE = Paths.get(BYOW_DIR.getPath(), "seed").toFile();
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
-    public static final int HEIGHT = 30;
+    public static final int HEIGHT = 53;
 
     /**
      * Method used for exploring a fresh world. This method should handle all inputs,
      * including inputs from the main menu.
      */
     public void interactWithKeyboard() {
+        ter.initialize(WIDTH, HEIGHT);
+        GUI gameGUI = new GUI(WIDTH, HEIGHT);
+        Seed seed = gameGUI.launch();
+        while (seed == null) {seed = gameGUI.launch();}
+        TETile[][] map = interactWithInputString(seed.getSeed());
+        boolean hasKey = hasKey(seed.getSeed());
+        ter.renderFrame(map);
+        gameGUI.displayGameHeader(map, false, false);
+
+        while (!isGameOver(seed.getSeed())) {
+           gameGUI.displayGameHeader(map, hasKey, false);
+           String movementInput = gameGUI.detectPlayerMovement(map, hasKey, false);
+           seed.addToSeed(movementInput);
+           map = interactWithInputString(seed.getSeed());
+           hasKey = hasKey(seed.getSeed());
+           ter.renderFrame(map);
+           gameGUI.displayGameHeader(map, hasKey, false);
+        }
+        ter.renderFrame(map);
+        gameGUI.displayGameHeader(map, hasKey, true);
     }
 
     /**
@@ -46,7 +73,25 @@ public class Engine {
         // See proj3.byow.InputDemo for a demo of how you can make a nice clean interface
         // that works for many different input types.
 
-        TETile[][] finalWorldFrame = null;
+
+
+        MapGenerator mapGenerator = new MapGenerator(input);
+        TETile[][] finalWorldFrame = mapGenerator.generateMap();
+
         return finalWorldFrame;
+    }
+
+    private boolean isGameOver(String input) {
+        MapGenerator mapGenerator = new MapGenerator(input);
+        TETile[][] finalWorldFrame = mapGenerator.generateMap();
+
+        return mapGenerator.isGameOver();
+    }
+
+    private boolean hasKey(String input) {
+        MapGenerator mapGenerator = new MapGenerator(input);
+        TETile[][] finalWorldFrame = mapGenerator.generateMap();
+
+        return mapGenerator.hasKey();
     }
 }
