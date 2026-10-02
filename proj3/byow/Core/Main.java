@@ -18,7 +18,7 @@ public class Main {
         // DO NOT CHANGE THESE LINES YET ;)
         else {
             Engine engine = new Engine();
-            engine.interactWithKeyboard();
+            engine. interactWithKeyboard();
         }
     }
 }
