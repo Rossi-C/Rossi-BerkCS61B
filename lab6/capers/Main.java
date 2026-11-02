@@ -5,9 +5,7 @@ import java.util.Arrays;
 
 import static capers.Utils.*;
 
-/** Canine Capers: A Gitlet Prelude.
- * @author TODO
-*/
+/** Canine Capers: A Gitlet Prelude. */
 public class Main {
     /**
      * Runs one of three commands:
