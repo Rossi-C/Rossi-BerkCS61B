@@ -6,12 +6,7 @@ import java.io.Serializable;
 import static gitlet.Repository.*;
 import static gitlet.Utils.*;
 
-/** Represents a gitlet branch object.
- *  TODO: It's a good idea to give a description here of what else this Class
- *  does at a high level.
- *
- *  @author Rossi Clinton
- */
+/** Represents a gitlet branch object. */
 
 public class Branch implements Serializable {
     /** name of the branch */
