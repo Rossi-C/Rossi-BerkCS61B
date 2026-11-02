@@ -4,9 +4,7 @@ import java.util.Formatter;
 import java.util.Observable;
 
 
-/** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
- */
+/** The state of a game of 2048. */
 public class Model extends Observable {
     /** Current contents of the board. */
     private Board board;
