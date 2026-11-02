@@ -16,12 +16,7 @@ import static gitlet.Utils.*;
 import static gitlet.Utils.serialize;
 import static gitlet.Utils.sha1;
 
-/** Represents a gitlet commit object.
- *  TODO: It's a good idea to give a description here of what else this Class
- *  does at a high level.
- *
- *  @author Rossi Clinton
- */
+/** Represents a gitlet commit object. */
 public class Commit implements Serializable {
     /**
      * TODO: add instance variables here.
