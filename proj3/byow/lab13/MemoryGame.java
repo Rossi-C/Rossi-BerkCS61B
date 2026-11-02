@@ -55,12 +55,12 @@ public class MemoryGame {
         StdDraw.clear(Color.BLACK);
         StdDraw.enableDoubleBuffering();
 
-        //TODO: Initialize random number generator
+        //Initialize random number generator
         rand = new Random(seed);
     }
 
     public String generateRandomString(int n) {
-        //TODO: Generate random string of letters of length n
+        //Generate random string of letters of length n
         String randString = "";
         for (int i = 0; i < n; i++){
             randString = randString + (CHARACTERS[rand.nextInt(26)]);
@@ -69,13 +69,13 @@ public class MemoryGame {
     }
 
     public void drawFrame(String s) {
-        //TODO: Take the string and display it in the center of the screen
+        //Take the string and display it in the center of the screen
         StdDraw.setFont(font);
         StdDraw.clear(StdDraw.BLACK);
         StdDraw.setPenColor(StdDraw.WHITE);
         StdDraw.text(width/2, height/2, s);
 
-        //TODO: If game is not over, display relevant game information at the top of the screen
+        //If game is not over, display relevant game information at the top of the screen
         drawHeader();
         StdDraw.show();
     }
@@ -100,7 +100,7 @@ public class MemoryGame {
     }
 
     public void flashSequence(String letters) {
-        //TODO: Display each character in letters, making sure to blank the screen between letters
+        //Display each character in letters, making sure to blank the screen between letters
         for (int i = 0; i < letters.length(); i++){
             drawFrame(String.valueOf(letters.charAt(i)));
             StdDraw.pause(1000);
@@ -112,7 +112,7 @@ public class MemoryGame {
     }
 
     public String solicitNCharsInput(int n) {
-        //TODO: Read n letters of player input
+        //Read n letters of player input
         drawFrame("");
         String typedString = "";
         String keyPress;
@@ -129,12 +129,12 @@ public class MemoryGame {
     }
 
     public void startGame() {
-        //TODO: Set any relevant variables before the game starts
+        //Set any relevant variables before the game starts
         round = 1;
         String randString;
         String inputString;
 
-        //TODO: Establish Engine loop
+        //Establish Engine loop
         while (!gameOver) {
             playerTurn = false;
             drawFrame("Round: " + round);
