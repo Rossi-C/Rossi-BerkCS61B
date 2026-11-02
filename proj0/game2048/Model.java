@@ -116,10 +116,6 @@ public class Model extends Observable {
 
         board.setViewingPerspective(side);
 
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
-
         /**
         * 1. start at northernmost value for each column and determine if null or value and store value
         * 2. check tile one south of previous. If null, move on to next tile. If tile has value, check if equal
