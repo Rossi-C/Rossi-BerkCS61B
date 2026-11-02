@@ -4,6 +4,7 @@
 !**.txt
 !**.json
 !**/pom.xml
+!*.md
 !.fatweleminus
 !.gitignore
 !library-sp21
