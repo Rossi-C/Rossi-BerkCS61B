@@ -7,12 +7,7 @@ import java.util.*;
 
 import static gitlet.Utils.*;
 
-/** Represents a gitlet repository.
- *  TODO: It's a good idea to give a description here of what else this Class
- *  does at a high level.
- *
- *  @author Rossi Clinton
- */
+/** Represents a gitlet repository. */
 public class Repository implements Serializable {
     /**
      * List all instance variables of the Repository class here with a useful
