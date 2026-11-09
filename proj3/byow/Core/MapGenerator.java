@@ -300,7 +300,7 @@ public class MapGenerator {
                 Math.abs(avatarPosition.getY() - keyPosition.getY()) < EPSILON) &&
                 (Math.abs(chestPosition.getX() - keyPosition.getX()) < EPSILON &&
                 Math.abs(chestPosition.getY() - keyPosition.getY()) < EPSILON)) {
-            chestPosition = rooms.get(random.nextInt(rooms.size())).centroid;
+            keyPosition = rooms.get(random.nextInt(rooms.size())).centroid;
         }
         map[(int) keyPosition.getX()][(int) keyPosition.getY()] = Tileset.KEY;
     }

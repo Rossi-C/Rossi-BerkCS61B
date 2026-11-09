@@ -2,6 +2,8 @@ package byow.Core;
 
 import byow.TileEngine.TETile;
 import static byow.Core.SerializationUtils.*;
+
+import byow.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.*;
@@ -18,7 +20,7 @@ public class GUI {
     private final long MAX_SEED = Long.MAX_VALUE;
     private Font font = new Font("Monaco", Font.BOLD, 20);
     TETile[][] map;
-    private final Set<String> TITLE_INPUT = Set.of("n", "l", "r", "q");
+    private final Set<String> TITLE_INPUT = Set.of("n", "l", "q");
     private final Set<String> MOVEMENT_KEYS = Set.of("w", "a", "s", "d");
     public Seed seed;
 
@@ -54,8 +56,7 @@ public class GUI {
         StdDraw.text(width/2, height/2 + height*.1, "CS 61B: THE GAME");
         StdDraw.text(width/2, height/2 + height*.05, "New Game (N)");
         StdDraw.text(width/2, height/2 + height*.025, "Load Game (L)");
-        StdDraw.text(width/2, height/2, "Replay Game (R)");
-        StdDraw.text(width/2, height/2 - height*.025, "Quit (Q)");
+        StdDraw.text(width/2, height/2, "Quit (Q)");
         StdDraw.show();
     }
 
@@ -71,7 +72,7 @@ public class GUI {
         StdDraw.setPenColor(StdDraw.WHITE);
         StdDraw.setFont(font);
         if (hasKey) {
-            StdDraw.picture(1, height - 1, "C:/Users/clint/Pictures/2dTilesets/Key.png");
+            StdDraw.text(6, height - 1, "You Have the Key!");
         }
         if (!hasKey && !gameOver) {
             StdDraw.text(width/2, height -1, "Find the Key!");
@@ -123,7 +124,6 @@ public class GUI {
             System.exit(0);
         } else if (playerInput.equals("l")) {
             seedString = loadGame();
-
         }
         return seedString;
     }
@@ -195,7 +195,7 @@ public class GUI {
         if (!SEED_FILE.exists()){
             displayMessageScreen("There are no previous files to load. You can start again with a new game!");
             StdDraw.pause(2000);
-            return null;
+            launch();
         }
         try {
             seed = readObject(SEED_FILE, Seed.class);
