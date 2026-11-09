@@ -36,6 +36,9 @@ public class GUI {
         this.displayStartScreen();
         String playerInput = this.solicitPlayerInput();
         String seedString = this.enactPlayerInput(playerInput);
+        if (seedString == null || seedString.isEmpty()) {
+            return null;
+        }
         seed = new Seed(seedString);
         return seed;
     }
@@ -53,6 +56,7 @@ public class GUI {
     }
 
     public void displayStartScreen() {
+        StdDraw.clear(StdDraw.BLACK);
         StdDraw.text(width/2, height/2 + height*.1, "CS 61B: THE GAME");
         StdDraw.text(width/2, height/2 + height*.05, "New Game (N)");
         StdDraw.text(width/2, height/2 + height*.025, "Load Game (L)");
@@ -195,7 +199,7 @@ public class GUI {
         if (!SEED_FILE.exists()){
             displayMessageScreen("There are no previous files to load. You can start again with a new game!");
             StdDraw.pause(2000);
-            launch();
+            return null;
         }
         try {
             seed = readObject(SEED_FILE, Seed.class);
