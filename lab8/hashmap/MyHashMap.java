@@ -105,9 +105,6 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
         return new Collection[tableSize];
     }
 
-    // TODO: Implement the methods of the Map61B Interface below
-    // Your code won't compile until you do so!
-
     private int hash(K key) {
         return key.hashCode() % numBuckets;
     }
