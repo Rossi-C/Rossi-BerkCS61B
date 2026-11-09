@@ -289,20 +289,21 @@ public class MapGenerator {
         Coordinate keyPosition = rooms.get(random.nextInt(rooms.size())).centroid;
 
         // placing chest in a room that is separate from the avatar
-        while (Math.abs(avatarPosition.getX() - chestPosition.getX()) < EPSILON &&
-                Math.abs(avatarPosition.getY() - chestPosition.getY()) < EPSILON) {
+        while (samePoint(avatarPosition, chestPosition)) {
             chestPosition = rooms.get(random.nextInt(rooms.size())).centroid;
         }
         map[(int) chestPosition.getX()][(int) chestPosition.getY()] = Tileset.CLOSED_CHEST;
 
         // placing key in a room that is separate from the avatar and the chest
-        while ((Math.abs(avatarPosition.getX() - keyPosition.getX()) < EPSILON &&
-                Math.abs(avatarPosition.getY() - keyPosition.getY()) < EPSILON) &&
-                (Math.abs(chestPosition.getX() - keyPosition.getX()) < EPSILON &&
-                Math.abs(chestPosition.getY() - keyPosition.getY()) < EPSILON)) {
+        while (samePoint(avatarPosition, keyPosition) || samePoint(keyPosition, chestPosition)) {
             keyPosition = rooms.get(random.nextInt(rooms.size())).centroid;
         }
         map[(int) keyPosition.getX()][(int) keyPosition.getY()] = Tileset.KEY;
+    }
+
+    private boolean samePoint(Coordinate point1, Coordinate point2) {
+        return Math.abs(point1.getX() - point2.getX()) < EPSILON &&
+        Math.abs(point1.getY() - point2.getY()) < EPSILON;
     }
 
     private void moveAvatar() {
