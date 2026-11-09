@@ -38,8 +38,6 @@ public class Repository implements Serializable {
     /** Current active branch, initialized as master branch */
     public Branch activeBranch;
 
-    /* TODO: fill in the rest of this class. */
-
     public Repository() {
         if (GITLET_DIR.exists()) {
             File repository = join(GITLET_DIR, "repo");
